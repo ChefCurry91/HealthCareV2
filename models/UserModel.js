@@ -29,19 +29,24 @@ const UserSchemaHealthCareV2 = new mongoose.Schema({
 
 	city: {
 		type: String,
-		trim: true,
+		//trim: true,
 			
 	},
 
 	zipCode: {
 		type: Number,
-		trim: true,
+		//trim: true,
 	},
 
 	address: {
 		type: String,
-		trim: true, 
+		//trim: true, 
 	},
 });
 
-export default mongoose.model('UserHealthCareV2', UserSchemaHealthCareV2);
+UserSchemaHealthCareV2.methods.toJSON = function() {
+	let obj= this.toObject();
+	delete obj.password;
+	return obj;
+}
+export default mongoose.model('User', UserSchemaHealthCareV2);

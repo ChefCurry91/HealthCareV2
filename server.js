@@ -10,10 +10,12 @@ import cookieParser from 'cookie-parser';
 
 
 
+
 // routers
 
 import appointmentRouter from './routers/appointmentRouter.js';
 import authRouter from './routers/AuthRouter.js';
+import userRouter from './routers/userRouter.js';
 
 // middleware
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
@@ -32,9 +34,17 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
+//const data = await axios.get('/api/v1/test')
+//console.log(data)
+
+app.get('/api/v1/test', (req, res) => {
+  res.json({ msg: 'test route' });
+});
 
 app.use('/api/v1/appointments', authenticateUser, appointmentRouter);
+app.use('/api/v1/users', authenticateUser, userRouter);
 app.use('/api/v1/auth', authRouter);
+
 
 app.use('*', (req, res) => {
     res.status(404).json({ msg: 'Not found' });

@@ -13,9 +13,9 @@ const AppointmentSchema = new mongoose.Schema({
 	},
 
 	createdBy: {
-		type: mongoose.Types.ObjectId,
-		ref: 'UserHealthCareV2',
-	},
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+    },
 },
 { timestamps:true }
 

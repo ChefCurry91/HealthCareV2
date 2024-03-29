@@ -3,13 +3,14 @@ import { StatusCodes } from 'http-status-codes';
 
     
  export const getAllAppointments = async (req, res) => {
-  const appointments = await Appointment.find({});
-  res.status(StatusCodes.OK).json({ appointments });
+    console.log(req.user.userId )
+    const appointments = await Appointment.find({ createdBy: req.user.userId });
+    res.status(StatusCodes.OK).json({ appointments });
 };
 
 export const createAppointment = async (req, res) => {
-    const { dateAppointment, timeAppointment } = req.body;
-    const appointment = await Appointment.create({ dateAppointment, timeAppointment});
+    req.body.createdBy = req.user.userId;
+    const appointment = await Appointment.create(req.body);
     res.status(StatusCodes.CREATED).json({ appointment });
 
 };
